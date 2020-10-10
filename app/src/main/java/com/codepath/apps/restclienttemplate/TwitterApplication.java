@@ -2,6 +2,10 @@ package com.codepath.apps.restclienttemplate;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+
+import android.app.ActionBar;
 
 import androidx.room.Room;
 
@@ -27,6 +31,8 @@ public class TwitterApplication extends Application {
 		// fallbackToDestructiveMigration()
         myDatabase = Room.databaseBuilder(this, MyDatabase.class,
                 MyDatabase.NAME).fallbackToDestructiveMigration().build();
+
+        getSupportActionBar().setTitle("Hello world App");  // provide compatibility to all the versions
 
         // use chrome://inspect to inspect your SQL database
         Stetho.initializeWithDefaults(this);
