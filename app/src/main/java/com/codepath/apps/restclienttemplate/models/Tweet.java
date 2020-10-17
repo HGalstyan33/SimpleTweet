@@ -5,23 +5,48 @@ import com.codepath.apps.restclienttemplate.TimeFormatter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Parcel
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "userId"))
 public class Tweet {
 
-    public User user;
-    public String body;
+    @PrimaryKey
+    @ColumnInfo
     public long id;
-    public static String createdAt;
+
+    @ColumnInfo
+    public String body;
+
+    @ColumnInfo
+    public String createdAt;
+
+    @ColumnInfo
+    public long userId;
+
+    @Ignore
+    public User user;
+
+    // empty constructed needed by the Parceler library
+    public Tweet() {}
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
-        tweet.body = jsonObject.getString("text");
         tweet.id = jsonObject.getLong("id");
+        tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
+        User user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.user = user;
+        tweet.userId = user.id;
         return tweet;
     }
 
@@ -33,7 +58,7 @@ public class Tweet {
         return tweets;
     }
 
-    public static String getFormattedTimestamp() {
+    public String getFormattedTimestamp() {
         return TimeFormatter.getTimeDifference(createdAt);
     }
 }
