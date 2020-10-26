@@ -4,7 +4,7 @@
 
 ---
 
-## Simple Tweet Part 2
+## Part 2
 
 Time spent: **8** hours spent in total
 
@@ -49,7 +49,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ---
 
-## Simple Tweet Part 1
+## Part 1
 
 Time spent: **10** hours spent in total
 
